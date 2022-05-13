@@ -5,6 +5,7 @@ import React from 'react';
 import { LoggedInUser } from '../../types';
 import Logout from '../logout/logout.component';
 import styles from './user-panel-switcher.component.scss';
+import root from '../../root.scss'
 
 export interface UserPanelSwitcherItemProps {
   user: LoggedInUser;
@@ -14,13 +15,9 @@ export interface UserPanelSwitcherItemProps {
 
 const UserPanelSwitcher: React.FC<UserPanelSwitcherItemProps> = ({ user, isLogoutEnabled, onLogout }) => (
   <div className={styles.switcherContainer}>
-    <Switcher aria-label="Switcher Container">
-      <UserAvatarFilledAlt20 />
-      <p>{user.person.display}</p>
-    </Switcher>
     {isLogoutEnabled && (
       <>
-        <SwitcherDivider className={styles.divider} />
+       
         <Switcher aria-label="Switcher Container">
           <Logout onLogout={onLogout} />
         </Switcher>

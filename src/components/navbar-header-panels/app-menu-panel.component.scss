@@ -7,10 +7,11 @@
     width: 100%;
     text-decoration: none;
     color: $ui-02;
-    background-color: transparent;
+    background-color: $brand-02;
+    cursor: pointer;
     @extend .productiveHeading01;
   }
   
   .menuLink a:hover {
-    background-color: #005d5d;
+    background-color: $brand-01;
   }

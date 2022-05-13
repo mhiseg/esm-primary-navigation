@@ -1,0 +1,32 @@
+@import "../../root.scss";
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  background-color: $brand-02;
+}
+.Container:hover{
+  background-color: $brand-01;
+}
+.Container ul {
+  display: flex;
+  flex-direction: row;
+  width: 20rem;
+  justify-content: flex-start;
+  color: $field-01; 
+  align-items: center;
+  @extend .productiveHeading01;
+  height: 3rem;
+  cursor: pointer;
+}
+
+.Container ul > svg {
+  margin: 0rem 0.75rem;
+  fill: $field-01;
+}
+.Container a{
+  text-decoration: none;
+}
+
+
+

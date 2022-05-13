@@ -13,7 +13,7 @@ export const configSchema = {
       _description: 'Alt text, shown on hover',
     },
     name: {
-      _type: Type.String,
+      _type: Type.String, 
       _default: null,
       _description: 'The organization name displayed when image is absent',
     },

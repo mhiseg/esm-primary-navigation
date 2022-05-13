@@ -1,0 +1,36 @@
+@import '../../root.scss';
+
+.usernameInfoValue {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.userInfoFonction {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+.HeaderUserInfo {
+  display: contents;
+}
+
+
+.HeaderUserInfoTile {
+  background: none;
+  margin-top: -15px;
+  height: 20px;
+}
+
+.userAvatar {
+  margin-right: 4px;
+}
+
+.langageDropdown {
+  z-index: 1;
+  background-color: $brand-01;
+  color: $ui-background;
+  margin-left: 10px;
+  margin-right: -40px;
+}

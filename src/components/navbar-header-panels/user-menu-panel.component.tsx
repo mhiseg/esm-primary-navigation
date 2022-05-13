@@ -3,30 +3,24 @@ import { ExtensionSlot } from '@openmrs/esm-framework';
 import { HeaderPanel } from 'carbon-components-react/es/components/UIShell';
 import { HeaderPanelProps } from 'carbon-components-react';
 import { LoggedInUser, UserSession } from '../../types';
-import styles from '../../root.scss';
+import root from '../../root.scss';
 
 interface UserMenuPanelProps extends HeaderPanelProps {
-  user: LoggedInUser;
-  allowedLocales: any;
+ 
   onLogout(): void;
   session: UserSession;
 }
 
-const UserMenuPanel: React.FC<UserMenuPanelProps> = ({ expanded, user, allowedLocales, onLogout, session }) => {
+const UserMenuPanel: React.FC<UserMenuPanelProps> = ({ expanded, onLogout, session }) => {
   return (
     <HeaderPanel
-      className={styles.headerPanel}
-      expanded={expanded}
-      aria-label="Location"
-      aria-labelledby="Location Icon">
+      className={root.headerPanel}
+      style={{ backgroundColor: root['brand-02'] }}
+      expanded={expanded}>
       <ExtensionSlot
         extensionSlotName="user-panel-slot"
         state={{
-          user: user,
-          allowedLocales: allowedLocales,
-          onLogout: onLogout,
-          referer: window.location.pathname,
-          currentLocation: session?.sessionLocation?.display,
+          onLogout: onLogout
         }}
       />
     </HeaderPanel>
