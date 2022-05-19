@@ -6,21 +6,17 @@ import { LoggedInUser, UserSession } from '../../types';
 import root from '../../root.scss';
 
 interface UserMenuPanelProps extends HeaderPanelProps {
- 
   onLogout(): void;
   session: UserSession;
 }
 
 const UserMenuPanel: React.FC<UserMenuPanelProps> = ({ expanded, onLogout, session }) => {
   return (
-    <HeaderPanel
-      className={root.headerPanel}
-      style={{ backgroundColor: root['brand-02'] }}
-      expanded={expanded}>
+    <HeaderPanel className={root.headerPanel} style={{ backgroundColor: root['brand-02'] }} expanded={expanded}>
       <ExtensionSlot
         extensionSlotName="user-panel-slot"
         state={{
-          onLogout: onLogout
+          onLogout: onLogout,
         }}
       />
     </HeaderPanel>
