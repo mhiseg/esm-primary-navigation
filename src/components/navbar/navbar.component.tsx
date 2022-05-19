@@ -18,7 +18,7 @@ import {
 } from 'carbon-components-react/es/components/UIShell';
 import { LoggedInUser, UserSession } from '../../types';
 import { isDesktop } from '../../utils';
-import AppMenuChangeLocalPanel from "../navbar-header-panels/app-menu-change-local-panel.component";
+import AppMenuChangeLocalPanel from '../navbar-header-panels/app-menu-change-local-panel.component';
 
 const HeaderLink: any = HeaderName;
 
@@ -74,7 +74,13 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
             onClick={() => togglePanel('appChangeLocal')}>
             {
               countryFlagEmoji.get(
-                user.userProperties.defaultLocale == 'en' ? 'us' : user.userProperties.defaultLocale,
+                (user?.userProperties?.defaultLocale ||
+                  session['user']?.userProperties?.defaultLocale ||
+                  localStorage?.i18nextLng) == 'en'
+                  ? 'us'
+                  : user?.userProperties?.defaultLocale ||
+                      session['user']?.userProperties?.defaultLocale ||
+                      localStorage?.i18nextLng,
               )['emoji']
             }
           </HeaderGlobalAction>
