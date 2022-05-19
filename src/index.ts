@@ -26,6 +26,28 @@ function setupOpenMRS() {
     ],
     extensions: [
       {
+        id: 'change-profil',
+        slot: 'user-panel-slot',
+        load: getAsyncLifecycle(() => import('./components/user-panel-switcher-item/user-panel-profil.component'), options),
+        online: {
+          postUserProperties: postUserPropertiesOnline,
+        },
+        offline: {
+          postUserProperties: postUserPropertiesOffline,
+        },
+      },
+      {
+        id: 'change-locale',
+        slot: 'appChangeLocal',
+        load: getAsyncLifecycle(() => import('./components/choose-locale/change-locale.component'), options),
+        online: {
+          postUserProperties: postUserPropertiesOnline,
+        },
+        offline: {
+          postUserProperties: postUserPropertiesOffline,
+        },
+      },
+      {
         id: 'default-user-panel',
         slot: 'user-panel-slot',
         load: getAsyncLifecycle(
@@ -38,20 +60,8 @@ function setupOpenMRS() {
         offline: {
           isLogoutEnabled: false,
         },
-      },
-      {
-        id: 'change-locale',
-        slot: 'user-panel-slot',
-        load: getAsyncLifecycle(() => import('./components/choose-locale/change-locale.component'), options),
-        online: {
-          postUserProperties: postUserPropertiesOnline,
-        },
-        offline: {
-          postUserProperties: postUserPropertiesOffline,
-        },
-      },
+      }
     ],
   };
 }
-
 export { backendDependencies, importTranslation, setupOpenMRS };

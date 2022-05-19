@@ -10,10 +10,13 @@ const Logo: React.FC = () => {
       ) : logo?.name ? (
         logo.name
       ) : (
-        <svg role="img" width={110} height={40}>
-          <use xlinkHref="#omrs-logo-partial-grey"></use>
-        </svg>
+        <>
+          <svg role="img" width={110} height={40}>
+            <use xlinkHref="#omrs-logo-white"></use>
+          </svg>
+        </>
       )}
+
     </>
   );
 };

@@ -1,5 +1,16 @@
 @import "../../root.scss";
 
-.labelselect label {
-  color: $labeldropdown;
+.flagComponent{
+  background-color: $brand-02;
+}
+.flagSelected{
+  background-color: $brand-01;
+  font-size:large;
+}
+.flagUnSelected{
+     font-size:medium;
+   }
+.flagUnSelected:hover,.flagSelected:hover{
+  background-color: $brand-01;
+  cursor:pointer;
 }

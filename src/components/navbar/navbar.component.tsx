@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Switcher20 from '@carbon/icons-react/lib/switcher/20';
 import Close20 from '@carbon/icons-react/lib/close/20';
-import UserAvatarFilledAlt20 from '@carbon/icons-react/es/user--avatar--filled--alt/20';
 import UserMenuPanel from '../navbar-header-panels/user-menu-panel.component';
 import SideMenuPanel from '../navbar-header-panels/side-menu-panel.component';
 import Logo from '../logo/logo.component';
 import AppMenuPanel from '../navbar-header-panels/app-menu-panel.component';
 import styles from './navbar.component.scss';
-import { isDesktop } from '../../utils';
+import HeaderUserInfo from './HeaderUserInfo';
 import { useLayoutType, navigate, ExtensionSlot } from '@openmrs/esm-framework';
+import countryFlagEmoji from 'country-flag-emoji';
 import {
   HeaderContainer,
   Header,
-  HeaderMenuButton,
   HeaderName,
   HeaderGlobalBar,
   HeaderGlobalAction,
 } from 'carbon-components-react/es/components/UIShell';
 import { LoggedInUser, UserSession } from '../../types';
+import { isDesktop } from '../../utils';
+import AppMenuChangeLocalPanel from '../navbar-header-panels/app-menu-change-local-panel.component';
 
 const HeaderLink: any = HeaderName;
 
@@ -30,6 +31,7 @@ export interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session }) => {
   const layout = useLayoutType();
+
   const [activeHeaderPanel, setActiveHeaderPanel] = React.useState<string>(null);
 
   const isActivePanel = React.useCallback((panelName: string) => activeHeaderPanel === panelName, [activeHeaderPanel]);
@@ -48,15 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
     const Icon = isActivePanel('appMenu') ? Close20 : Switcher20;
 
     return (
-      <Header aria-label="OpenMRS">
-        {!isDesktop(layout) && (
-          <HeaderMenuButton
-            aria-label="Open menu"
-            isCollapsible
-            onClick={() => togglePanel('sideMenu')}
-            isActive={isActivePanel('sideMenu')}
-          />
-        )}
+      <Header aria-label="OpenMRS" className={styles.navbarHeader}>
         <HeaderLink
           prefix=""
           onClick={() => {
@@ -65,34 +59,50 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
           }}>
           <Logo />
         </HeaderLink>
-        <HeaderGlobalBar>
-          <ExtensionSlot extensionSlotName="top-nav-actions-slot" className={styles.topNavActionSlot} />
+
+        <HeaderGlobalBar
+          className={styles.HeaderGlobalBar}
+          aria-label="Users"
+          aria-labelledby="Users Avatar Icon"
+          name="Users">
+          <HeaderUserInfo allowedLocales={allowedLocales} onClickChange={() => togglePanel('userMenu')} user={user} />
           <HeaderGlobalAction
-            aria-label="Users"
-            aria-labelledby="Users Avatar Icon"
-            style={{ padding: '12px' }}
-            name="Users"
-            isActive={isActivePanel('userMenu')}
-            onClick={() => togglePanel('userMenu')}>
-            <UserAvatarFilledAlt20 />
+            aria-label="App Change local"
+            isActive={isActivePanel('appChangeLocal')}
+            aria-labelledby="App change local"
+            style={{ backgroundColor: styles['brand-01'] }}
+            onClick={() => togglePanel('appChangeLocal')}>
+            {
+              countryFlagEmoji.get(
+                (user?.userProperties?.defaultLocale ||
+                  session['user']?.userProperties?.defaultLocale ||
+                  localStorage?.i18nextLng) == 'en'
+                  ? 'us'
+                  : user?.userProperties?.defaultLocale ||
+                      session['user']?.userProperties?.defaultLocale ||
+                      localStorage?.i18nextLng,
+              )['emoji']
+            }
           </HeaderGlobalAction>
+
           <HeaderGlobalAction
             aria-label="App Menu"
             isActive={isActivePanel('appMenu')}
             aria-labelledby="App Menu"
+            style={{ backgroundColor: styles['brand-01'] }}
             onClick={() => togglePanel('appMenu')}>
             <Icon />
           </HeaderGlobalAction>
         </HeaderGlobalBar>
         {!isDesktop(layout) && <SideMenuPanel hidePanel={hidePanel} expanded={isActivePanel('sideMenu')} />}
         <AppMenuPanel expanded={isActivePanel('appMenu')} />
-        <UserMenuPanel
-          user={user}
-          session={session}
-          expanded={isActivePanel('userMenu')}
+
+        <AppMenuChangeLocalPanel
+          expanded={isActivePanel('appChangeLocal')}
           allowedLocales={allowedLocales}
-          onLogout={onLogout}
+          user={user}
         />
+        <UserMenuPanel session={session} expanded={isActivePanel('userMenu')} onLogout={onLogout} />
       </Header>
     );
   }, [session, user, allowedLocales, isActivePanel, layout, hidePanel, togglePanel]);
