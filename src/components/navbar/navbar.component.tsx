@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Switcher20 from '@carbon/icons-react/lib/switcher/20';
 import Close20 from '@carbon/icons-react/lib/close/20';
 import UserMenuPanel from '../navbar-header-panels/user-menu-panel.component';
@@ -7,8 +7,12 @@ import Logo from '../logo/logo.component';
 import AppMenuPanel from '../navbar-header-panels/app-menu-panel.component';
 import styles from './navbar.component.scss';
 import HeaderUserInfo from './HeaderUserInfo';
-import { useLayoutType, navigate, ExtensionSlot } from '@openmrs/esm-framework';
+import { useLayoutType, navigate } from '@openmrs/esm-framework';
 import countryFlagEmoji from 'country-flag-emoji';
+import { LoggedInUser, UserSession } from '../../types';
+import { isDesktop } from '../../utils';
+import AppMenuChangeLocalPanel from '../navbar-header-panels/app-menu-change-local-panel.component';
+
 import {
   HeaderContainer,
   Header,
@@ -16,10 +20,6 @@ import {
   HeaderGlobalBar,
   HeaderGlobalAction,
 } from 'carbon-components-react/es/components/UIShell';
-import { LoggedInUser, UserSession } from '../../types';
-import { isDesktop } from '../../utils';
-import AppMenuChangeLocalPanel from '../navbar-header-panels/app-menu-change-local-panel.component';
-
 const HeaderLink: any = HeaderName;
 
 export interface NavbarProps {
@@ -65,22 +65,32 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
           aria-label="Users"
           aria-labelledby="Users Avatar Icon"
           name="Users">
-          <HeaderUserInfo allowedLocales={allowedLocales} onClickChange={() => togglePanel('userMenu')} user={user} />
+
+          <HeaderGlobalAction
+            aria-label="App Change user"
+            isActive={isActivePanel('user-panel-slot')}
+            aria-labelledby="App change user"
+            className={styles.HeaderUserPanel}
+            style={{ backgroundColor: styles['brand-01'] }}
+            onClick={() =>{ togglePanel('user-panel-slot') } }>
+
+            <HeaderUserInfo user={user} />
+
+          </HeaderGlobalAction>
+
           <HeaderGlobalAction
             aria-label="App Change local"
-            isActive={isActivePanel('appChangeLocal')}
+            isActive={isActivePanel('ChangeLocal-panel-slot')}
             aria-labelledby="App change local"
             style={{ backgroundColor: styles['brand-01'] }}
-            onClick={() => togglePanel('appChangeLocal')}>
+            onClick={() => togglePanel('ChangeLocal-panel-slot')}>
             {
               countryFlagEmoji.get(
                 (user?.userProperties?.defaultLocale ||
-                  session['user']?.userProperties?.defaultLocale ||
                   localStorage?.i18nextLng) == 'en'
                   ? 'us'
                   : user?.userProperties?.defaultLocale ||
-                      session['user']?.userProperties?.defaultLocale ||
-                      localStorage?.i18nextLng,
+                  localStorage?.i18nextLng,
               )['emoji']
             }
           </HeaderGlobalAction>
@@ -98,16 +108,15 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
         <AppMenuPanel expanded={isActivePanel('appMenu')} />
 
         <AppMenuChangeLocalPanel
-          expanded={isActivePanel('appChangeLocal')}
+          expanded={isActivePanel('ChangeLocal-panel-slot')}
           allowedLocales={allowedLocales}
           user={user}
         />
-        <UserMenuPanel session={session} expanded={isActivePanel('userMenu')} onLogout={onLogout} />
+        <UserMenuPanel session={session} expanded={isActivePanel('user-panel-slot')} onLogout={onLogout} />
       </Header>
     );
   }, [session, user, allowedLocales, isActivePanel, layout, hidePanel, togglePanel]);
 
   return <div>{session && <HeaderContainer render={render} />}</div>;
 };
-
 export default Navbar;

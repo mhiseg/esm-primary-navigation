@@ -1,6 +1,4 @@
-import React, { Children, useEffect, useState } from 'react';
-import Select from 'carbon-components-react/es/components/Select';
-import SelectItem from 'carbon-components-react/es/components/SelectItem';
+import React, { useEffect, useState } from 'react';
 import styles from './change-locale.component.scss';
 import { refetchCurrentUser } from '@openmrs/esm-framework';
 import { LoggedInUser } from '../../types';
@@ -19,6 +17,7 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postU
     if (user.userProperties.defaultLocale !== userProps.defaultLocale) {
       const ac = new AbortController();
       postUserProperties(user.uuid, userProps, ac).then(() => refetchCurrentUser());
+      console.log(userProps);
       return () => ac.abort();
     }
   }, [userProps]);
@@ -28,7 +27,13 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postU
       {allowedLocales?.map(function(locale) {
         return (
           <div
-            onClick={event => setUserProps({ ...userProps, defaultLocale: event.currentTarget.id })}
+            onClick={event =>
+              setUserProps({
+                ...userProps,
+                defaultLocale: event.currentTarget.id,
+                proficientLocales: event.currentTarget.id,
+              })
+            }
             id={locale}
             className={user.userProperties.defaultLocale == locale ? styles.flagSelected : styles.flagUnSelected}>
             {countryFlagEmoji.get(locale == 'en' ? 'us' : locale)['emoji']} {locale}
