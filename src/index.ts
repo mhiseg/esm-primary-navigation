@@ -26,7 +26,7 @@ function setupOpenMRS() {
     ],
     extensions: [
       {
-        id: 'change-profil',
+        id: 'default-change-profil',
         slot: 'user-panel-slot',
         load: getAsyncLifecycle(() => import('./components/user-panel-switcher-item/user-panel-profil.component'), options),
         online: {
@@ -37,8 +37,8 @@ function setupOpenMRS() {
         },
       },
       {
-        id: 'change-locale',
-        slot: 'appChangeLocal',
+        id: 'default-change-locale',
+        slot: 'ChangeLocal-panel-slot',
         load: getAsyncLifecycle(() => import('./components/choose-locale/change-locale.component'), options),
         online: {
           postUserProperties: postUserPropertiesOnline,
@@ -60,7 +60,7 @@ function setupOpenMRS() {
         offline: {
           isLogoutEnabled: false,
         },
-      }
+      },
     ],
   };
 }
