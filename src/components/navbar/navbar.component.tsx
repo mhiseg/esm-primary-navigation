@@ -65,17 +65,16 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
           aria-label="Users"
           aria-labelledby="Users Avatar Icon"
           name="Users">
-
           <HeaderGlobalAction
             aria-label="App Change user"
             isActive={isActivePanel('user-panel-slot')}
             aria-labelledby="App change user"
             className={styles.HeaderUserPanel}
             style={{ backgroundColor: styles['brand-01'] }}
-            onClick={() =>{ togglePanel('user-panel-slot') } }>
-
+            onClick={() => {
+              togglePanel('user-panel-slot');
+            }}>
             <HeaderUserInfo user={user} />
-
           </HeaderGlobalAction>
 
           <HeaderGlobalAction
@@ -85,13 +84,9 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
             style={{ backgroundColor: styles['brand-01'] }}
             onClick={() => togglePanel('ChangeLocal-panel-slot')}>
             {
-              countryFlagEmoji.get(
-                (user?.userProperties?.defaultLocale ||
-                  localStorage?.i18nextLng) == 'en'
-                  ? 'us'
-                  : user?.userProperties?.defaultLocale ||
-                  localStorage?.i18nextLng,
-              )['emoji']
+              countryFlagEmoji.get(user?.userProperties?.defaultLocale ? user?.userProperties?.defaultLocale : 'us')[
+                'emoji'
+              ]
             }
           </HeaderGlobalAction>
 
