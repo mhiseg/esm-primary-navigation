@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Switcher20 from '@carbon/icons-react/lib/switcher/20';
 import Close20 from '@carbon/icons-react/lib/close/20';
 import UserMenuPanel from '../navbar-header-panels/user-menu-panel.component';
@@ -31,7 +31,7 @@ export interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session }) => {
   const layout = useLayoutType();
-
+  const [userLogin, setUserLogin] = useState(user);
   const [activeHeaderPanel, setActiveHeaderPanel] = React.useState<string>(null);
 
   const isActivePanel = React.useCallback((panelName: string) => activeHeaderPanel === panelName, [activeHeaderPanel]);
@@ -48,6 +48,14 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
 
   const render = React.useCallback(() => {
     const Icon = isActivePanel('appMenu') ? Close20 : Switcher20;
+
+    const getLanguage = user => {
+      if (typeof user?.userProperties?.defaultLocale == 'undefined') {
+        localStorage.setItem('i18nextLng', 'fr');
+        return 'fr';
+      }
+      return user.userProperties.defaultLocale == 'en' ? 'us' : user.userProperties.defaultLocale;
+    };
 
     return (
       <Header aria-label="OpenMRS" className={styles.navbarHeader}>
@@ -83,11 +91,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
             aria-labelledby="App change local"
             style={{ backgroundColor: styles['brand-01'] }}
             onClick={() => togglePanel('ChangeLocal-panel-slot')}>
-            {
-              countryFlagEmoji.get(user?.userProperties?.defaultLocale ? user?.userProperties?.defaultLocale : 'us')[
-                'emoji'
-              ]
-            }
+            {countryFlagEmoji.get(getLanguage(user))['emoji']}
           </HeaderGlobalAction>
 
           <HeaderGlobalAction
