@@ -8,7 +8,8 @@ import AppMenuPanel from '../navbar-header-panels/app-menu-panel.component';
 import styles from './navbar.component.scss';
 import HeaderUserInfo from './HeaderUserInfo';
 import { useLayoutType, navigate } from '@openmrs/esm-framework';
-import countryFlagEmoji from 'country-flag-emoji';
+import IconFlag, { Icon } from '@iconify/react';
+
 import { LoggedInUser, UserSession } from '../../types';
 import { isDesktop } from '../../utils';
 import AppMenuChangeLocalPanel from '../navbar-header-panels/app-menu-change-local-panel.component';
@@ -47,7 +48,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
   }, []);
 
   const render = React.useCallback(() => {
-    const Icon = isActivePanel('appMenu') ? Close20 : Switcher20;
+    const IconApp = isActivePanel('appMenu') ? Close20 : Switcher20;
 
     return (
       <Header aria-label="OpenMRS" className={styles.navbarHeader}>
@@ -72,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
             aria-labelledby="App change user"
             className={styles.HeaderUserPanel}
             style={{ backgroundColor: styles['brand-01'] }}
-            onClick={() =>{ togglePanel('user-panel-slot') } }>
+            onClick={() => { togglePanel('user-panel-slot') }}>
 
             <HeaderUserInfo user={user} />
 
@@ -84,15 +85,17 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
             aria-labelledby="App change local"
             style={{ backgroundColor: styles['brand-01'] }}
             onClick={() => togglePanel('ChangeLocal-panel-slot')}>
-            {
-              countryFlagEmoji.get(
-                (user?.userProperties?.defaultLocale ||
-                  localStorage?.i18nextLng) == 'en'
-                  ? 'us'
-                  : user?.userProperties?.defaultLocale ||
-                  localStorage?.i18nextLng,
-              )['emoji']
-            }
+
+            <Icon
+              className={styles.navbarHeaderFlag}
+              icon={"cif:" + ((user?.userProperties?.defaultLocale ||
+                localStorage?.i18nextLng) == 'en'
+                ? 'us'
+                : user?.userProperties?.defaultLocale ||
+                localStorage?.i18nextLng)
+              }
+            />
+
           </HeaderGlobalAction>
 
           <HeaderGlobalAction
@@ -101,7 +104,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
             aria-labelledby="App Menu"
             style={{ backgroundColor: styles['brand-01'] }}
             onClick={() => togglePanel('appMenu')}>
-            <Icon />
+            <IconApp />
           </HeaderGlobalAction>
         </HeaderGlobalBar>
         {!isDesktop(layout) && <SideMenuPanel hidePanel={hidePanel} expanded={isActivePanel('sideMenu')} />}

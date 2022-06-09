@@ -3,7 +3,7 @@ import styles from './change-locale.component.scss';
 import { refetchCurrentUser } from '@openmrs/esm-framework';
 import { LoggedInUser } from '../../types';
 import { PostUserProperties } from './change-locale.resource';
-import countryFlagEmoji from 'country-flag-emoji';
+import { Icon } from '@iconify/react';
 
 export interface ChangeLocaleProps {
   allowedLocales: Array<string>;
@@ -21,7 +21,6 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postU
       return () => ac.abort();
     }
   }, [userProps]);
-
   return (
     <div className={styles.flagComponent}>
       {allowedLocales?.map(function(locale) {
@@ -36,7 +35,7 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postU
             }
             id={locale}
             className={user.userProperties.defaultLocale == locale ? styles.flagSelected : styles.flagUnSelected}>
-            {countryFlagEmoji.get(locale == 'en' ? 'us' : locale)['emoji']} {locale}
+             <i> <Icon icon={"cif:"+(locale == 'en' ? 'us' : locale)} /> </i> {locale}
           </div>
         );
       })}

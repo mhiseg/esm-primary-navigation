@@ -20,6 +20,10 @@ $feature-flags: (grid-columns-16: true,
 .navbarHeader {
   background-Color: $brand-01;
 }
+.navbarHeaderFlag{
+  width: 27px;
+  height: 27px;
+}
 
 
 .userAvatar {

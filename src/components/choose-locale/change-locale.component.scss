@@ -5,11 +5,16 @@
 }
 .flagSelected{
   background-color: $brand-01;
+  padding: 10px;
   font-size:large;
 }
 .flagUnSelected{
      font-size:medium;
+     padding: 10px;
+   i{
+    font-size:large
    }
+  }
 .flagUnSelected:hover,.flagSelected:hover{
   background-color: $brand-01;
   cursor:pointer;
