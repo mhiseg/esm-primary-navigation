@@ -17,7 +17,6 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postU
     if (user.userProperties.defaultLocale !== userProps.defaultLocale) {
       const ac = new AbortController();
       postUserProperties(user.uuid, userProps, ac).then(() => refetchCurrentUser());
-      console.log(userProps);
       return () => ac.abort();
     }
   }, [userProps]);
