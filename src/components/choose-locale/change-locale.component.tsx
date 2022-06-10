@@ -20,6 +20,22 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postU
       return () => ac.abort();
     }
   }, [userProps]);
+  const getLanguageText = local => {
+    switch (local) {
+      case 'en':
+        return 'English';
+      case 'fr':
+        return 'Français';
+      case 'kr':
+        return 'Kreyòl';
+      case 'es':
+        return 'Español';
+      case 'it':
+        return 'Italiano';
+      case 'pt':
+        return 'Portuguese';
+    }
+  };
   return (
     <div className={styles.flagComponent}>
       {allowedLocales?.map(function(locale) {
@@ -34,7 +50,11 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postU
             }
             id={locale}
             className={user.userProperties.defaultLocale == locale ? styles.flagSelected : styles.flagUnSelected}>
-             <i> <Icon icon={"cif:"+(locale == 'en' ? 'us' : locale)} /> </i> {locale}
+            <i>
+              {' '}
+              <Icon icon={'cif:' + (locale == 'en' ? 'us' : locale)} width={20} />{' '}
+            </i>{' '}
+            {getLanguageText(locale)}
           </div>
         );
       })}
