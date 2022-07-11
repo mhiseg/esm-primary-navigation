@@ -6,7 +6,7 @@ const backendDependencies = { 'webservices.rest': '^2.2.0' };
 
 const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-const moduleName = '@openmrs/esm-primary-navigation-app';
+const moduleName = '@mhiseg/esm-primary-navigation-app';
 const options = {
   featureName: 'primary navigation',
   moduleName,
@@ -28,7 +28,10 @@ function setupOpenMRS() {
       {
         id: 'default-change-profil',
         slot: 'user-panel-slot',
-        load: getAsyncLifecycle(() => import('./components/user-panel-switcher-item/user-panel-profil.component'), options),
+        load: getAsyncLifecycle(
+          () => import('./components/user-panel-switcher-item/user-panel-profil.component'),
+          options,
+        ),
         online: {
           postUserProperties: postUserPropertiesOnline,
         },
