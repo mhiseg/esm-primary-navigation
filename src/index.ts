@@ -28,7 +28,10 @@ function setupOpenMRS() {
       {
         id: 'default-change-profil',
         slot: 'user-panel-slot',
-        load: getAsyncLifecycle(() => import('./components/user-panel-switcher-item/user-panel-profil.component'), options),
+        load: getAsyncLifecycle(
+          () => import('./components/user-panel-switcher-item/user-panel-profil.component'),
+          options,
+        ),
         online: {
           postUserProperties: postUserPropertiesOnline,
         },

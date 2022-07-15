@@ -20,6 +20,7 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postU
       return () => ac.abort();
     }
   }, [userProps]);
+
   const getLanguageText = local => {
     switch (local) {
       case 'en':
