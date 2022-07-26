@@ -1,0 +1,7 @@
+{
+  "admin": "Admin",
+  "nurse": "Nurse",
+  "doctor": "Doctor",
+  "profilChange":"modify the profile",
+  "Logout":"Logout"
+}

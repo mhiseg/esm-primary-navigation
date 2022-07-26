@@ -1,0 +1,30 @@
+@import '../../root.scss';
+
+.usernameInfoValue {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.userInfoFonction {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+.userAvatar{
+  margin-bottom: -30px;
+  margin-right: 20px;
+} 
+
+.HeaderUserInfo {
+  display: contents;
+  margin-top: 7px;
+}
+
+.HeaderUserInfoTile {
+  margin-right:15px;
+  background: none;
+  margin-top: -10px;
+  height: 40px;
+}

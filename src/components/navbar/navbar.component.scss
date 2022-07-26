@@ -1,0 +1,34 @@
+@import '../../root.scss';
+
+.topNavActionsSlot {
+  display: flex;
+}
+.topNavActionSlot {
+  display: flex;
+}
+
+$feature-flags: (grid-columns-16: true,
+);
+
+.HeaderGlobalBar {
+  color: $ui-background;
+}
+.HeaderUserPanel{
+  width: max-content;
+}
+
+.navbarHeader {
+  background-Color: $brand-01;
+}
+.navbarHeaderFlag{
+  width: 27px;
+  height: 27px;
+}
+
+
+.userAvatar {
+  margin-right: 5px;
+}
+.grid{
+  display: inline;
+}
