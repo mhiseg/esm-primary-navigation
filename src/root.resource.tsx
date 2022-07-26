@@ -17,7 +17,7 @@ export function getSynchronizedCurrentUser(opts: CurrentUserWithResponseOption) 
         const db = new PrimaryNavigationDb();
         const queuedChangeEntries = await db.userPropertiesChanges.where({ userUuid: user.user.uuid }).toArray();
         const queuedChanges = queuedChangeEntries.map(entry => entry.changes);
-        Object.assign(user.user.userProperties, ...queuedChanges);
+        Object.assign(user.user.userProperties,   ...queuedChanges);
       }
 
       return user;

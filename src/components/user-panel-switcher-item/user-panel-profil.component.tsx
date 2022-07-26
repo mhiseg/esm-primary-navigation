@@ -13,7 +13,7 @@ export default function AppointmentScheduling() {
          <ConfigurableLink to="${openmrsBase}/spa/profil">
          <Switcher aria-label="Switcher Container">
         <UserAvatarFilledAlt24 />
-        {t(' profil Change')}
+        {t("profilChange")}
         </Switcher>
         </ConfigurableLink>
       </div>
