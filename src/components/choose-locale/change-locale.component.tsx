@@ -4,6 +4,7 @@ import { refetchCurrentUser } from "@openmrs/esm-framework";
 import { LoggedInUser } from "../../types";
 import { PostUserProperties } from "./change-locale.resource";
 import { Icon } from "@iconify/react";
+import { getExtensionFlag } from "../../root.resource";
 
 export interface ChangeLocaleProps {
   allowedLocales: Array<string>;
@@ -13,7 +14,7 @@ export interface ChangeLocaleProps {
 const ChangeLocale: React.FC<ChangeLocaleProps> = ({
   allowedLocales,
   user,
-  postUserProperties
+  postUserProperties,
 }) => {
   const [userProps, setUserProps] = useState(user.userProperties);
 
@@ -27,26 +28,26 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({
     }
   }, [userProps]);
 
-  const getLanguageText = local => {
+  const getLanguageText = (local) => {
     switch (local) {
       case "en":
         return "English";
       case "fr":
         return "Français";
-      case "ht":
+      case "kr":
         return "Kreyòl";
     }
   };
   return (
     <div className={styles.flagComponent}>
-      {allowedLocales?.map(function(locale) {
+      {allowedLocales?.map(function (locale) {
         return (
           <div
-            onClick={event =>
+            onClick={(event) =>
               setUserProps({
                 ...userProps,
                 defaultLocale: event.currentTarget.id,
-                proficientLocales: event.currentTarget.id
+                proficientLocales: event.currentTarget.id,
               })
             }
             id={locale}
@@ -58,10 +59,7 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({
           >
             <i>
               {" "}
-              <Icon
-                icon={"cif:" + (locale == "en" ? "us" : locale)}
-                width={20}
-              />{" "}
+              <Icon icon={"cif:" + getExtensionFlag(locale)} width={20} />{" "}
             </i>{" "}
             {getLanguageText(locale)}
           </div>

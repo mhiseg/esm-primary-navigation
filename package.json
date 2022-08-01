@@ -42,7 +42,8 @@
     "carbon-components-react": "^7.56.0",
     "@carbon/grid": "^10.17.0",
     "@openmrs/esm-api": "^3.2.0",
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.15",
+    "@iconify/react": "^3.2.1"
   },
   "peerDependencies": {
     "@openmrs/esm-framework": ">=3.1.14-pre",
@@ -50,7 +51,8 @@
     "carbon-icons": "^7.0.7",
     "react": "^16.13.1",
     "react-i18next": "11.x",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "@iconify/react": "^3.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",

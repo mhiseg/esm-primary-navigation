@@ -8,7 +8,7 @@ import AppMenuPanel from "../navbar-header-panels/app-menu-panel.component";
 import styles from "./navbar.component.scss";
 import HeaderUserInfo from "./HeaderUserInfo";
 import { useLayoutType, navigate } from "@openmrs/esm-framework";
-import IconFlag, { Icon } from "@iconify/react";
+import { Icon } from "@iconify/react";
 
 import { LoggedInUser, UserSession } from "../../types";
 import { isDesktop } from "../../utils";
@@ -19,8 +19,9 @@ import {
   Header,
   HeaderName,
   HeaderGlobalBar,
-  HeaderGlobalAction
+  HeaderGlobalAction,
 } from "carbon-components-react/es/components/UIShell";
+import { getExtensionFlag } from "../../root.resource";
 const HeaderLink: any = HeaderName;
 
 export interface NavbarProps {
@@ -34,13 +35,12 @@ const Navbar: React.FC<NavbarProps> = ({
   user,
   onLogout,
   allowedLocales,
-  session
+  session,
 }) => {
   const layout = useLayoutType();
   const [userLogin, setUserLogin] = useState(user);
-  const [activeHeaderPanel, setActiveHeaderPanel] = React.useState<string>(
-    null
-  );
+  const [activeHeaderPanel, setActiveHeaderPanel] =
+    React.useState<string>(null);
 
   const isActivePanel = React.useCallback(
     (panelName: string) => activeHeaderPanel === panelName,
@@ -49,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
   const togglePanel = React.useCallback(
     (panelName: string) =>
-      setActiveHeaderPanel(activeHeaderPanel =>
+      setActiveHeaderPanel((activeHeaderPanel) =>
         activeHeaderPanel === panelName ? null : panelName
       ),
     []
@@ -61,16 +61,6 @@ const Navbar: React.FC<NavbarProps> = ({
 
   const render = React.useCallback(() => {
     const IconApp = isActivePanel("appMenu") ? Close20 : Switcher20;
-
-    const getLanguage = user => {
-      if (typeof user?.userProperties?.defaultLocale == "undefined") {
-        localStorage.setItem("i18nextLng", "fr");
-        return "fr";
-      }
-      return user.userProperties.defaultLocale == "en"
-        ? "us"
-        : user.userProperties.defaultLocale;
-    };
 
     return (
       <Header aria-label="OpenMRS" className={styles.navbarHeader}>
@@ -110,18 +100,10 @@ const Navbar: React.FC<NavbarProps> = ({
             style={{ backgroundColor: styles["brand-01"] }}
             onClick={() => togglePanel("ChangeLocal-panel-slot")}
           >
-            {console.log("change local", user?.userProperties?.defaultLocale)}
-
             <Icon
               className={styles.navbarHeaderFlag}
               icon={
-                "cif:" +
-                ((user?.userProperties?.defaultLocale ||
-                  localStorage?.i18nextLng) == "en"
-                  ? "us"
-                  : user?.userProperties?.defaultLocale ||
-                    localStorage?.i18nextLng ||
-                    allowedLocales[2])
+                "cif:" + getExtensionFlag(user?.userProperties?.defaultLocale)
               }
             />
           </HeaderGlobalAction>
@@ -143,7 +125,6 @@ const Navbar: React.FC<NavbarProps> = ({
           />
         )}
         <AppMenuPanel expanded={isActivePanel("appMenu")} />
-
         <AppMenuChangeLocalPanel
           expanded={isActivePanel("ChangeLocal-panel-slot")}
           allowedLocales={allowedLocales}
@@ -163,7 +144,7 @@ const Navbar: React.FC<NavbarProps> = ({
     isActivePanel,
     layout,
     hidePanel,
-    togglePanel
+    togglePanel,
   ]);
 
   return <div>{session && <HeaderContainer render={render} />}</div>;

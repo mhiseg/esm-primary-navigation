@@ -1,7 +1,7 @@
 import {
   CurrentUserWithResponseOption,
   getCurrentUser,
-  openmrsObservableFetch
+  openmrsObservableFetch,
 } from "@openmrs/esm-framework";
 import { mergeMap } from "rxjs/operators";
 import { PrimaryNavigationDb } from "./offline";
@@ -18,15 +18,14 @@ export function getSynchronizedCurrentUser(
   opts: CurrentUserWithResponseOption
 ) {
   return getCurrentUser(opts).pipe(
-    mergeMap(async user => {
-      user.allowedLocales = ["en", "fr", "ht"];
+    mergeMap(async (user) => {
+      user["allowedLocales"] = ["en", "fr", "kr"];
       if (user.user) {
-        console.log("Synchronizes current user", user);
         const db = new PrimaryNavigationDb();
         const queuedChangeEntries = await db.userPropertiesChanges
           .where({ userUuid: user.user.uuid })
           .toArray();
-        const queuedChanges = queuedChangeEntries.map(entry => entry.changes);
+        const queuedChanges = queuedChangeEntries.map((entry) => entry.changes);
         Object.assign(user.user.userProperties, ...queuedChanges);
       }
 
@@ -34,3 +33,17 @@ export function getSynchronizedCurrentUser(
     })
   );
 }
+
+export const getExtensionFlag = (extension) => {
+  switch (extension) {
+    case undefined:
+      localStorage.setItem("i18nextLng", "fr");
+      return "fr";
+    case "en":
+      return "us";
+    case "kr":
+      return "ht";
+    default:
+      return extension;
+  }
+};
