@@ -1,20 +1,29 @@
 @import '../../root.scss';
 
+.HeaderContent{
+  float: right;
+}
+
 .usernameInfoValue {
   font-family: 'Roboto', sans-serif;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 13px;
+  font-weight: bolder;
+  margin-top: 1.7px;
+  color: whitesmoke;
 }
 
 .userInfoFonction {
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  font-weight: lighter;
+  font-size: 10px;
 }
 
 .userAvatar{
-  margin-bottom: -30px;
-  margin-right: 20px;
+  margin-top: 1.5px;
+  width: 29px;
+  height: 29px;
+  color: #f5f5f5;
+  opacity: .85;
+  margin-right: 3px;
 } 
 
 .HeaderUserInfo {
@@ -23,8 +32,8 @@
 }
 
 .HeaderUserInfoTile {
-  margin-right:15px;
+  margin-right: 15px;
   background: none;
-  margin-top: -10px;
-  height: 40px;
+  margin-top: 0px;
+  height: 30px;
 }

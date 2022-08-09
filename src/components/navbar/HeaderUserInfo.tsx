@@ -9,9 +9,9 @@ function HeaderUserInfo({ user }) {
   return (
     <div className={styles.HeaderUserInfo}>
       <Tile className={styles.HeaderUserInfoTile}>
-        <Row>
+        <Row className={styles.HeaderContent}>
           <UserAvatarFilledAlt32 className={styles.userAvatar} />
-          <Column md={12} sm={9}>
+          <Column>
             <Row className={styles["usernameInfoValue"]}>{user.username}</Row>
             <Row className={styles["userInfoFonction"]}>
               {" "}

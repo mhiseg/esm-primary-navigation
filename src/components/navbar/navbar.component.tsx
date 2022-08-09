@@ -94,6 +94,7 @@ const Navbar: React.FC<NavbarProps> = ({
           </HeaderGlobalAction>
 
           <HeaderGlobalAction
+            className={styles.Local}
             aria-label="App Change local"
             isActive={isActivePanel("ChangeLocal-panel-slot")}
             aria-labelledby="App change local"
