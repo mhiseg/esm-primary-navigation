@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import styles from './root.scss';
-import Navbar from './components/navbar/navbar.component';
-import { BrowserRouter, Redirect } from 'react-router-dom';
-import { createErrorHandler } from '@openmrs/esm-framework';
-import { LoggedInUser, UserSession } from './types';
-import { getCurrentSession, getSynchronizedCurrentUser } from './root.resource';
-import { syncUserPropertiesChanges } from './offline';
+import React, { useEffect } from "react";
+import styles from "./root.scss";
+import Navbar from "./components/navbar/navbar.component";
+import { BrowserRouter, Redirect } from "react-router-dom";
+import { createErrorHandler } from "@openmrs/esm-framework";
+import { LoggedInUser, UserSession } from "./types";
+import { getCurrentSession, getSynchronizedCurrentUser } from "./root.resource";
+import { syncUserPropertiesChanges } from "./offline";
 
 export interface RootProps {
   syncUserPropertiesChangesOnLoad: boolean;
@@ -16,7 +16,7 @@ const Root: React.FC<RootProps> = ({ syncUserPropertiesChangesOnLoad }) => {
   const [userSession, setUserSession] = React.useState<UserSession>(null);
   const [allowedLocales, setAllowedLocales] = React.useState<any[]>();
   const logout = React.useCallback(() => setUser(false), []);
-  const openmrsSpaBase = window['getOpenmrsSpaBase']();
+  const openmrsSpaBase = window["getOpenmrsSpaBase"]();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -29,8 +29,10 @@ const Root: React.FC<RootProps> = ({ syncUserPropertiesChangesOnLoad }) => {
   }, [syncUserPropertiesChangesOnLoad, user]);
 
   React.useEffect(() => {
-    const currentUserSub = getSynchronizedCurrentUser({ includeAuthStatus: true }).subscribe(response => {
-      setAllowedLocales(response['allowedLocales']);
+    const currentUserSub = getSynchronizedCurrentUser({
+      includeAuthStatus: true,
+    }).subscribe((response) => {
+      setAllowedLocales(response["allowedLocales"]);
       if (response.authenticated) {
         setUser(response.user);
       } else {
@@ -40,7 +42,9 @@ const Root: React.FC<RootProps> = ({ syncUserPropertiesChangesOnLoad }) => {
       createErrorHandler();
     });
 
-    const currentSessionSub = getCurrentSession().subscribe(({ data }) => setUserSession(data));
+    const currentSessionSub = getCurrentSession().subscribe(({ data }) =>
+      setUserSession(data)
+    );
 
     return () => {
       currentUserSub.unsubscribe();
@@ -57,13 +61,22 @@ const Root: React.FC<RootProps> = ({ syncUserPropertiesChangesOnLoad }) => {
               pathname: `${openmrsSpaBase}login`,
               state: {
                 referrer: window.location.pathname.slice(
-                  window.location.pathname.indexOf(openmrsSpaBase) + openmrsSpaBase.length - 1,
+                  window.location.pathname.indexOf(openmrsSpaBase) +
+                    openmrsSpaBase.length -
+                    1
                 ),
               },
             }}
           />
         ) : (
-          user && <Navbar allowedLocales={allowedLocales} user={user} onLogout={logout} session={userSession} />
+          user && (
+            <Navbar
+              allowedLocales={allowedLocales}
+              user={user}
+              onLogout={logout}
+              session={userSession}
+            />
+          )
         )}
       </div>
     </BrowserRouter>

@@ -12,7 +12,11 @@ function HeaderUserInfo({ user }) {
         <Row className={styles.HeaderContent}>
           <UserAvatarFilledAlt32 className={styles.userAvatar} />
           <Column>
-            <Row className={styles["usernameInfoValue"]}>{user.username}</Row>
+            <Row className={styles["usernameInfoValue"]}>
+              {user?.person.names[0].familyName +
+                ", " +
+                user?.person.names[0].givenName}
+            </Row>
             <Row className={styles["userInfoFonction"]}>
               {" "}
               {t(user.systemId.split("-")[0])}

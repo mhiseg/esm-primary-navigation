@@ -3,5 +3,6 @@
   "nurse": "Nurse",
   "doctor": "Doctor",
   "profilChange":"modify the profile",
-  "Logout":"Logout"
+  "Logout":"Logout",
+  "archivist": "Archivist"
 }
