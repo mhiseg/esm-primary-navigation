@@ -2,7 +2,7 @@
   "admin": "Admin",
   "nurse": "Nurse",
   "doctor": "Doctor",
-  "profilChange":"modify the profile",
+  "profile":"User Profile",
   "Logout":"Logout",
   "archivist": "Archivist"
 }
