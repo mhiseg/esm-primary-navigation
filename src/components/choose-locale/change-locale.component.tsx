@@ -34,7 +34,7 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({
         return "English";
       case "fr":
         return "Français";
-      case "kr":
+      case "ht":
         return "Kreyòl";
     }
   };

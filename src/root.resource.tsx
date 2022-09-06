@@ -19,7 +19,6 @@ export function getSynchronizedCurrentUser(
 ) {
   return getCurrentUser(opts).pipe(
     mergeMap(async (user) => {
-      user["allowedLocales"] = ["en", "fr", "kr"];
       if (user.user) {
         const db = new PrimaryNavigationDb();
         const queuedChangeEntries = await db.userPropertiesChanges
@@ -41,8 +40,6 @@ export const getExtensionFlag = (extension) => {
       return "fr";
     case "en":
       return "us";
-    case "kr":
-      return "ht";
     default:
       return extension;
   }

@@ -13,9 +13,10 @@ function HeaderUserInfo({ user }) {
           <UserAvatarFilledAlt32 className={styles.userAvatar} />
           <Column>
             <Row className={styles["usernameInfoValue"]}>
-              {user?.person.names[0].familyName +
+              {user.person.display}
+              {/* {user?.person?.names[0]?.familyName +
                 ", " +
-                user?.person.names[0].givenName}
+                user?.person?.names[0]?.givenName} */}
             </Row>
             <Row className={styles["userInfoFonction"]}>
               {" "}
