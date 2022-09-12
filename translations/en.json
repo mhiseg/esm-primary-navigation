@@ -1,7 +1,7 @@
 {
   "admin": "Admin",
   "nurse": "Nurse",
-  "doctor": "Doctor",
+  "doctor": "Physician",
   "profile":"User Profile",
   "Logout":"Logout",
   "archivist": "Archivist"
