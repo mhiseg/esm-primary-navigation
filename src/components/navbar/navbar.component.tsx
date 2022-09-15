@@ -67,7 +67,11 @@ const Navbar: React.FC<NavbarProps> = ({
         <HeaderLink
           prefix=""
           onClick={() => {
-            navigate({ to: "${openmrsSpaBase}/home" });
+            navigate({
+              to:
+                "${openmrsSpaBase}" + userLogin.userProperties?.defaultPage ||
+                "${openmrsSpaBase}/home",
+            });
             hidePanel();
           }}
         >
